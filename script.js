@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const loginButton = document.getElementById("loginButton");
   const logoutButton = document.getElementById("logoutButton");
-
   loginButton.addEventListener("click", login);
   logoutButton.addEventListener("click", logout);
   showPage(getCurrentPage());
@@ -9,28 +8,24 @@ document.addEventListener("DOMContentLoaded", function () {
     showUserList();
   }
   function login() {
-    const username = document.getElementById("username").value.trim(); //trim rimuove eventuali spazi vuoti iniziali e finali
+    const username = document.getElementById("username").value.trim();
     if (username === "") {
-      //qui controllo se l'utente ha inserito qualcosa, se non ha inserito niente mostro alert
       alert("Inserisci un username valido.");
       return;
     }
     const userList = getUserList();
     const existingUser = userList.find((user) => user.username === username);
     if (existingUser) {
-      //se esiste aggiorna il contatore
-
       existingUser.count++;
       existingUser.lastLogin = new Date().toLocaleString();
     } else {
       userList.push({
-        //se non esiste creane uno nuovo
         username: username,
         count: 1,
         lastLogin: new Date().toLocaleString(),
       });
     }
-    localStorage.setItem("userList", JSON.stringify(userList)); //salvo nel localstorage
+    localStorage.setItem("userList", JSON.stringify(userList));
     showPage("userList");
     showUserList();
   }
